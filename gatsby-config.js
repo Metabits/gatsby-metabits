@@ -1,6 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: 'Gatsby Default Starter',
+    lang: 'no'
   },
   plugins: [
     'gatsby-plugin-styled-components',

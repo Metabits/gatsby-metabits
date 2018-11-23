@@ -1,8 +1,8 @@
 ---
-title: "Om oss"
-templateKey: 'Page'
+templateKey: 'Homepage'
+title: "Hjem"
 inNavigation: true
-navigationOrder: 5
+navigationOrder: 1
 ---
 
 Her kommer noe *innhold*

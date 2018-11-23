@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
 import LayoutContainer from '../containers/LayoutContainer'
 
-const Page = ({ data }) => {
+const Homepage = ({ data }) => {
   const {markdownRemark: {frontmatter: {title}, html}} = data
   return (
     <LayoutContainer>
@@ -15,18 +15,37 @@ const Page = ({ data }) => {
   )
 }
 
-Page.propTypes = {
+Homepage.propTypes = {
   data: PropTypes.object.isRequired,
 }
 
-export default Page
+export default Homepage
 
-export const pageQuery = graphql`
-  query Page($id: String!) {
+export const homepageQuery = graphql`
+  query Homepage($id: String!) {
     markdownRemark(id: { eq: $id }) {
       html
+      id
       frontmatter {
         title
+        services {
+          title
+          price
+          text
+        }
+      }
+    }
+    services: allMarkdownRemark(limit: 10, filter: {frontmatter:{type:{eq:"service"}}} ) {
+      edges {
+        node {
+          excerpt(pruneLength: 500)
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+          }
+        }
       }
     }
   }

@@ -1,8 +1,8 @@
 ---
-title: "Om oss"
+title: "Tjenester"
 templateKey: 'Page'
 inNavigation: true
-navigationOrder: 5
+navigationOrder: 2
 ---
 
 Her kommer noe *innhold*
