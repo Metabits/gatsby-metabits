@@ -25,7 +25,7 @@ const icons = {
   home,
   bars,
   close,
-  left
+  left,
 }
 
 const IconBase = styled.svg`
@@ -82,7 +82,7 @@ const Icon = ({ icon, ...rest }) => {
 Icon.propTypes = {
   icon: PropTypes.oneOf(Object.keys(icons)).isRequired,
   baseline: PropTypes.bool,
-  size: PropTypes.number
+  size: PropTypes.number,
 }
 
 export default Icon
@@ -97,9 +97,9 @@ const RoundedContainer = styled(Element)`
   justify-content: center;
 `
 
-export const RoundedIcon = ({icon, ...rest}) => {
+export const RoundedIcon = ({ icon, ...rest }) => {
   return (
-    <RoundedContainer as='i' {...rest}>
+    <RoundedContainer as="i" {...rest}>
       <Icon icon={icon} />
     </RoundedContainer>
   )

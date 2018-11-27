@@ -1,18 +1,19 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 
 const Canvas = styled.div`
-  background: rgba(100%,100%,100%,.9);
+  background: rgba(100%, 100%, 100%, 0.9);
   position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  transform: ${props => props.active ? 'translate(0%, 0px)' : 'translate(0%, 20%) scale(.8)'};
-  opacity: ${props => props.active ? 1 : 0};
+  transform: ${props =>
+    props.active ? 'translate(0%, 0px)' : 'translate(0%, 20%) scale(.8)'};
+  opacity: ${props => (props.active ? 1 : 0)};
   transition: transform 200ms;
-  backface-visibility: ${props => props.active ? 'visible' : 'hidden'};
-  z-index: ${props => props.active ? 150 : -1000};
+  backface-visibility: ${props => (props.active ? 'visible' : 'hidden')};
+  z-index: ${props => (props.active ? 150 : -1000)};
 `
 const CanvasInner = styled.div`
   position: absolute;
@@ -25,18 +26,16 @@ const CanvasInner = styled.div`
 `
 
 export default class OffCanvas extends Component {
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     // if (process.browser && this.props.visible !== nextProps.visible) {
     //   document.body.style.overflow = nextProps.visible ? 'hidden' : ''
     // }
   }
-  render () {
-    const {visible, children} = this.props
+  render() {
+    const { visible, children } = this.props
     return (
       <Canvas active={visible}>
-        <CanvasInner>
-          {children}
-        </CanvasInner>
+        <CanvasInner>{children}</CanvasInner>
       </Canvas>
     )
   }

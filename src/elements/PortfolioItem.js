@@ -16,13 +16,17 @@ const Link = El.withComponent('a').extend`
   }
 `
 
-const PortfolioItem = ({title, lead, link, image}) => {
+const PortfolioItem = ({ title, lead, link, image }) => {
   return (
     <El mb={3}>
       <Image mb={1} src={image} fullWidth border />
-      <Title level={2} size={2.4} mb={0.5} bold>{title}</Title>
+      <Title level={2} size={2.4} mb={0.5} bold>
+        {title}
+      </Title>
       <Text mb={1}>{lead}</Text>
-      <Link href={link} target='_blank'>Gå til nettsted</Link>
+      <Link href={link} target="_blank">
+        Gå til nettsted
+      </Link>
     </El>
   )
 }

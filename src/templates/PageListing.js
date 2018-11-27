@@ -4,23 +4,20 @@ import { graphql } from 'gatsby'
 import LayoutContainer from '../containers/LayoutContainer'
 
 import {Col, Row} from 'react-styled-flexboxgrid'
-import PageBanner from '../elements/PageBanner'
 import Feature from '../elements/Feature'
-import Wrapper from '../elements/Wrapper'
-import Title from '../elements/Title'
+import PageTitle from '../elements/PageTitle'
 
-const Homepage = ({ data }) => {
+const PageListing = ({ data }) => {
   const {
     markdownRemark: {
-      frontmatter: { banner, meta }
+      frontmatter: { title, subTitle, meta },
     },
     services
   } = data
   return (
-    <LayoutContainer inset={false} meta={meta}>
-      {banner && <PageBanner {...banner} />}
-      <Wrapper>
-        <Title level={2} center mt={1}>Våre tjenester</Title>
+    <LayoutContainer meta={meta}>
+      <article>
+        <PageTitle title={title} subTitle={subTitle} />
         {services && (
           <Row>
             {services.edges.map((item, i) => {
@@ -32,21 +29,25 @@ const Homepage = ({ data }) => {
             })}
           </Row>
         )}
-      </Wrapper>
+      </article>
     </LayoutContainer>
   )
 }
 
-Homepage.propTypes = {
+PageListing.propTypes = {
   data: PropTypes.object.isRequired,
+  services: PropTypes.array
 }
 
-export default Homepage
+export default PageListing
 
-export const homepageQuery = graphql`
-  query Homepage($id: String!) {
+export const listingPageQuery = graphql`
+  query PageListing($id: String!) {
     markdownRemark(id: { eq: $id }) {
-      ...PageBanner
+      frontmatter {
+        title
+        subTitle
+      }
       ...MetaFields
     }
     services: allMarkdownRemark(

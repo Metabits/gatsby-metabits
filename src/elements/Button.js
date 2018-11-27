@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import {Link} from 'gatsby'
+import { Link } from 'gatsby'
 import Element from './Element'
 
-const isActive = (props, hover) => props.active || !!(hover && !!(props.to || props.onClick))
+const isActive = (props, hover) =>
+  props.active || !!(hover && !!(props.to || props.onClick))
 
 const buttonColor = (props, hover = false) => {
   if (props.link) {
@@ -39,17 +40,18 @@ const BasicButton = styled(Element)`
   text-decoration: none;
   text-align: center;
   border: none;
-  display: ${props => props.block ? 'flex' : 'inline-flex'};
+  display: ${props => (props.block ? 'flex' : 'inline-flex')};
   align-items: center;
   justify-content: center;
-  border-radius: ${(props) => props.rounded ? '50%' : '3px'};
+  border-radius: ${props => (props.rounded ? '50%' : '3px')};
   outline: none;
-  box-shadow: ${props => props.shadow ? props.theme.shadow : 'none'};
+  box-shadow: ${props => (props.shadow ? props.theme.shadow : 'none')};
   color: ${props => buttonColor(props)};
   background-color: ${props => buttonBackground(props)};
   &:hover {
-    text-decoration: ${props => props.link && props.to ? 'underline' : 'none'};
-    cursor: ${props => props.to || props.onClick ? 'pointer' : 'default'};
+    text-decoration: ${props =>
+      props.link && props.to ? 'underline' : 'none'};
+    cursor: ${props => (props.to || props.onClick ? 'pointer' : 'default')};
     color: ${props => buttonColor(props, true)};
     background-color: ${props => buttonBackground(props, true)};
   }
@@ -58,15 +60,16 @@ const ActionButton = styled(BasicButton)`
   cursor: pointer;
 `
 
-const Button = ({...rawProps}) => {
+const Button = ({ ...rawProps }) => {
   const props = {
-    pt: .75, pb: .75, pl: 1, pr: 1,
-    ...rawProps
+    pt: 0.75,
+    pb: 0.75,
+    pl: 1,
+    pr: 1,
+    ...rawProps,
   }
   if (props.onClick) {
-    return (
-      <ActionButton as='button' type={props.type || 'submit'} {...props} />
-    )
+    return <ActionButton as="button" type={props.type || 'submit'} {...props} />
   }
   if (props.to) {
     return (
@@ -75,9 +78,7 @@ const Button = ({...rawProps}) => {
       </StyledLink>
     )
   }
-  return (
-    <BasicButton {...props} />
-  )
+  return <BasicButton {...props} />
 }
 
 const RoundedButtonRaw = styled(Button)`
@@ -87,6 +88,6 @@ const RoundedButtonRaw = styled(Button)`
   min-width: 4rem;
   min-height: 4rem;
 `
-export const RoundedButton = (props) => (<RoundedButtonRaw rounded {...props} />)
+export const RoundedButton = props => <RoundedButtonRaw rounded {...props} />
 
 export default Button

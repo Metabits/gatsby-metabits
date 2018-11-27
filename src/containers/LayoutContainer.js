@@ -5,7 +5,18 @@ import { StaticQuery, graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import { Location } from '@reach/router'
 
-const LayoutContainer = ({ title, ...props }) => (
+export const query = graphql`
+  fragment MetaFields on MarkdownRemark {
+    frontmatter {
+      meta {
+        title
+        description
+      }
+    }
+  }
+`
+
+const LayoutContainer = ({ meta = {}, ...props }) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
@@ -16,9 +27,9 @@ const LayoutContainer = ({ title, ...props }) => (
           }
         }
         navigation: allMarkdownRemark(
-          limit: 10,
-          filter: {frontmatter:{inNavigation:{eq:true}}}
-          sort: {fields: frontmatter___navigationOrder}
+          limit: 10
+          filter: { frontmatter: { inNavigation: { eq: true } } }
+          sort: { fields: frontmatter___order }
         ) {
           edges {
             node {
@@ -26,7 +37,7 @@ const LayoutContainer = ({ title, ...props }) => (
                 slug
               }
               frontmatter {
-                title
+                title: navTitle
               }
             }
           }
@@ -35,30 +46,31 @@ const LayoutContainer = ({ title, ...props }) => (
     `}
     render={data => (
       <>
-        <Helmet title={title || data.site.siteMetadata.title}>
+        <Helmet title={meta.title || data.site.siteMetadata.title}>
           <html lang={data.site.siteMetadata.lang} />
+          {meta.description && <meta name="description" content={meta.description} />}
         </Helmet>
         <Location>
-            {({ location }) => {
-              return (
-                <Layout
-                  location={location}
-                  navigation={data.navigation.edges.map(({node}) => ({
-                    to: node.fields.slug,
-                    children: node.frontmatter.title
-                  }))}
-                  {...props}
-                />
-              )
-            }}
-          </Location>
+          {({ location }) => {
+            return (
+              <Layout
+                location={location}
+                navigation={data.navigation.edges.map(({ node }) => ({
+                  to: node.fields.slug,
+                  children: node.frontmatter.title,
+                }))}
+                {...props}
+              />
+            )
+          }}
+        </Location>
       </>
     )}
   />
 )
 
 LayoutContainer.propTypes = {
-  title: PropTypes.string
+  title: PropTypes.string,
 }
 
 export default LayoutContainer

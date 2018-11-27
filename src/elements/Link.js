@@ -1,11 +1,11 @@
 import React from 'react'
-import {Link as RouteLink} from '../routes'
+import { Link as GatsbyLink } from 'gatsby'
 
-const Link = ({to, children, prefetch, ...rest}) => {
+const Link = ({ children, ...rest }) => {
   return (
-    <RouteLink route={to} prefetch={prefetch}>
-      <a href={to} {...rest}>{children}</a>
-    </RouteLink>
+    <GatsbyLink {...rest}>
+      {children}
+    </GatsbyLink>
   )
 }
 

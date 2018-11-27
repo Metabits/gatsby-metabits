@@ -1,19 +1,22 @@
 import React from 'react'
 import styled from 'styled-components'
-import gql from 'graphql-tag'
+import {graphql} from 'gatsby'
 import breakpoint from 'styled-components-breakpoint'
+import Img from '../components/Image'
 
 import Wrapper from './Wrapper'
 import Button from './Button'
 
-export const fragment = gql`
-  fragment PageBanner on Page {
-    Banner {
-      title
-      lead
-      image
-      linkText
-      uri
+export const query = graphql`
+  fragment PageBanner on MarkdownRemark {
+    frontmatter {
+      banner {
+        title
+        lead
+        image
+        linkText
+        uri
+      }
     }
   }
 `
@@ -34,25 +37,36 @@ const Title = styled.h1`
   font-size: 4rem;
   font-weight: bold;
   color: #fff;
-  text-shadow: 0 0 6px rgba(0,0,0,.5);
-  margin-bottom: .5rem;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0.5rem;
   line-height: 1.2;
 `
-const Subtitle = Title.withComponent('h2').extend`
+const Subtitle = styled(Title)`
   font-size: 2.0rem;
   font-weight: normal;
   margin-bottom: 2rem;
 `
 
-const PageBanner = ({title, lead, image, linkText, uri}) => {
+const PageBanner = ({ title, lead, image, linkText, uri }) => {
   return (
-    <Banner style={{backgroundImage: `url( ${image} )`}}>
-      <Wrapper>
-        <Title>{title}</Title>
-        <Subtitle>{lead}</Subtitle>
-        {linkText && uri && <Button shadow to={uri}>{linkText}</Button>}
-      </Wrapper>
-    </Banner>
+    <Img
+      src={image}
+      render={({src}) => {
+        return (
+          <Banner style={{ backgroundImage: `url( ${src} )` }}>
+            <Wrapper>
+              <Title>{title}</Title>
+              <Subtitle>{lead}</Subtitle>
+              {linkText && uri && (
+                <Button shadow to={uri}>
+                  {linkText}
+                </Button>
+              )}
+            </Wrapper>
+          </Banner>
+        )
+      }}
+    />
   )
 }
 

@@ -29,14 +29,18 @@ exports.createPages = ({ actions, graphql }) => {
     const posts = result.data.allMarkdownRemark.edges
     posts.forEach(edge => {
       const id = edge.node.id
+      const slug = edge.node.fields.slug
+      const [last, ...pathList] = slug.split('/').filter((item) => !!item).reverse()
+      const parent = pathList && pathList.length > 0 ? `/${pathList.join('/')}/` : null
       createPage({
-        path: edge.node.fields.slug,
+        path: slug,
         component: path.resolve(
           `src/templates/${String(edge.node.frontmatter.templateKey)}.js`
         ),
         // additional data can be passed via context
         context: {
           id,
+          parent
         },
       })
     })
@@ -45,6 +49,14 @@ exports.createPages = ({ actions, graphql }) => {
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
+
+  const { frontmatter } = node
+    if (frontmatter) {
+      const { banner } = frontmatter
+      if (banner && banner.image) {
+        frontmatter.banner.image = path.join(__dirname, '/src/images/', banner.image)
+      }
+    }
 
   if (node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode })

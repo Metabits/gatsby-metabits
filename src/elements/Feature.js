@@ -1,22 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
-import gql from 'graphql-tag'
+import {graphql} from 'gatsby'
 
 import Link from './Link'
 import Icon from './Icon'
 
-export const fragment = gql`
-  fragment Feature on Page {
-    id
-    title
-    subTitle
-    icon
-    image
+export const query = graphql`
+  fragment Feature on MarkdownRemark {
+    fields {
+      slug
+    }
+    frontmatter {
+      title
+      subTitle
+      icon
+    }
   }
 `
 
 const BoxWrapper = styled(Link)`
-  display:block;
+  display: block;
   margin-bottom: 1rem;
   padding: 1rem;
   text-align: center;
@@ -29,28 +32,28 @@ const BoxWrapper = styled(Link)`
   }
 `
 const IconWrapper = styled.div`
-  display:block;
+  display: block;
   margin-bottom: 1rem;
   font-size: 4rem;
-  color: ${props => props.theme.colors.primary}
+  color: ${props => props.theme.colors.primary};
 `
 const Title = styled.h2`
-  display:block;
-  margin-bottom: .5rem;
+  display: block;
+  margin-bottom: 0.5rem;
   font-size: 2rem;
   font-weight: bold;
-  color: ${props => props.theme.colors.text}
+  color: ${props => props.theme.colors.text};
 `
 const Image = styled.img`
-  display:block;
+  display: block;
   margin-bottom: 1rem;
   max-height: 15rem;
   width: auto;
 `
 
-const Feature = ({id, title, prefetch, subTitle, icon, image}) => {
+const Feature = ({ fields: {slug}, frontmatter: {title, subTitle, icon, image} }) => {
   return (
-    <BoxWrapper to={id} prefetch={prefetch}>
+    <BoxWrapper to={slug}>
       <IconWrapper>
         {icon && <Icon icon={icon} />}
         {image && <Image src={image} title={title} />}

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { Link } from 'gatsby'
@@ -7,53 +7,57 @@ import breakpoint from 'styled-components-breakpoint'
 import Icon from '../elements/Icon'
 import Logo from '../elements/LogoElement'
 import OffCanvas from '../elements/OffCanvas'
-import Button, {RoundedButton} from '../elements/Button'
+import Button, { RoundedButton } from '../elements/Button'
 import Wrapper from '../elements/Wrapper'
 
 class Layout extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
-      menuVisible: false
+      menuVisible: false,
     }
   }
   componentDidUpdate(prevProps) {
-    if (this.props.location.pathname !== prevProps.location.pathname && this.state.menuVisible) {
+    if (
+      this.props.location.pathname !== prevProps.location.pathname &&
+      this.state.menuVisible
+    ) {
       this.setState({
-        menuVisible: false
+        menuVisible: false,
       })
     }
   }
-  toggleBtn (icon = 'bars') {
-    const {menuVisible} = this.state
+  toggleBtn(icon = 'bars') {
+    const { menuVisible } = this.state
     return (
-      <RoundedButton tight primary onClick={this.toggleMenu} active={menuVisible}><Icon icon={icon} /></RoundedButton>
+      <RoundedButton
+        tight
+        primary
+        onClick={this.toggleMenu}
+        active={menuVisible}
+      >
+        <Icon icon={icon} />
+      </RoundedButton>
     )
   }
   toggleMenu = () => {
     this.setState({
-      menuVisible: !this.state.menuVisible
+      menuVisible: !this.state.menuVisible,
     })
   }
-  renderContent () {
-    const {inset = true, children} = this.props
+  renderContent() {
+    const { inset = true, children } = this.props
     if (!inset) {
       return children
     }
-    return (
-      <Wrapper>
-        {children}
-      </Wrapper>
-    )
+    return <Wrapper>{children}</Wrapper>
   }
-  render () {
+  render() {
     return (
       <ThemeProvider theme={theme}>
         <Main>
           {this.renderHeader()}
-          <Content>
-            {this.renderContent()}
-          </Content>
+          <Content>{this.renderContent()}</Content>
           <Footer>
             <Wrapper>
               <p>Metabits as © {new Date().getFullYear()}</p>
@@ -65,38 +69,49 @@ class Layout extends Component {
       </ThemeProvider>
     )
   }
-  renderHeader () {
-    const {navigation, location: {pathname}} = this.props
+  renderHeader() {
+    const {
+      navigation,
+      location: { pathname },
+    } = this.props
     return (
       <Header>
         <Wrapper>
           <HeaderWrapper>
-            <Link to='/'>
-              <LogoWrapper href='/'>
-                <Logo title='Metabits' />
+            <Link to="/">
+              <LogoWrapper href="/">
+                <Logo title="Metabits" />
               </LogoWrapper>
             </Link>
             <NavWrapper>
               <NavDesktop>
-                {navigation && navigation.map((item, i) => {
-                  const isLast = !(i < navigation.length - 1)
-                  return (
-                    <Button link={!isLast} primary={isLast} pl={2} pr={2} ml={2} key={i} {...item} active={item.to === pathname} />
-                  )
-                })}
+                {navigation &&
+                  navigation.map((item, i) => {
+                    const isLast = !(i < navigation.length - 1)
+                    return (
+                      <Button
+                        link={!isLast}
+                        primary={isLast}
+                        pl={2}
+                        pr={2}
+                        ml={2}
+                        key={i}
+                        {...item}
+                        active={item.to === pathname}
+                      />
+                    )
+                  })}
               </NavDesktop>
-              <NavBtnMobile>
-                {this.toggleBtn()}
-              </NavBtnMobile>
+              <NavBtnMobile>{this.toggleBtn()}</NavBtnMobile>
             </NavWrapper>
           </HeaderWrapper>
         </Wrapper>
       </Header>
     )
   }
-  renderOverlay () {
-    const {menuVisible} = this.state
-    const {navigation} = this.props
+  renderOverlay() {
+    const { menuVisible } = this.state
+    const { navigation } = this.props
     return (
       <OffCanvas visible={menuVisible}>
         <Header>
@@ -104,21 +119,17 @@ class Layout extends Component {
             <HeaderWrapper>
               <Link to={'/'}>
                 <LogoWrapper isHidden>
-                  <Logo alt='Metabits' />
+                  <Logo alt="Metabits" />
                 </LogoWrapper>
               </Link>
-              <NavWrapper>
-                {this.toggleBtn('close')}
-              </NavWrapper>
+              <NavWrapper>{this.toggleBtn('close')}</NavWrapper>
             </HeaderWrapper>
           </Wrapper>
         </Header>
         <NavMobile>
           <NavMobileInner>
             {navigation.map((item, i) => {
-              return (
-                <Button block mb={1} size='xl' link key={i} {...item} />
-              )
+              return <Button block mb={1} size="xl" link key={i} {...item} />
             })}
           </NavMobileInner>
         </NavMobile>
@@ -129,18 +140,18 @@ class Layout extends Component {
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-  navigation: PropTypes.array
+  navigation: PropTypes.array,
 }
 
 const theme = {
   flexboxgrid: {
-    gutterWidth: 4
+    gutterWidth: 4,
   },
   shadow: '0 0 6px rgba(0,0,0,.3)',
   sizes: {
     normal: 1.8,
     xl: 2.2,
-    xxl: 2.4
+    xxl: 2.4,
   },
   colors: {
     gray: '#999',
@@ -152,8 +163,8 @@ const theme = {
     secondaryActive: '#D47A19',
     textMuted: '#999',
     white: '#fff',
-    lightGray: '#f2f2f2'
-  }
+    lightGray: '#f2f2f2',
+  },
 }
 
 const Main = styled.div`
@@ -181,7 +192,7 @@ const Footer = styled.footer`
 const LogoWrapper = styled.div`
   width: 15rem;
   display: block;
-  visibility: ${props => props.isHidden ? 'hidden' : 'visible'};
+  visibility: ${props => (props.isHidden ? 'hidden' : 'visible')};
   ${breakpoint('desktop')`
     width: 20rem;
   `}

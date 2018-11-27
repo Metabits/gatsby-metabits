@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   & h3,
   & h4 {
     font-weight: bold;
-    margin: 0 0 .5rem;
+    margin: 0 0 0.5rem;
     font-size: 2rem;
   }
   & p,
@@ -16,14 +16,14 @@ const Wrapper = styled.div`
   }
   & li {
     margin-left: 2rem;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
   }
   & strong {
     font-weight: bold;
   }
 `
 
-const Content = ({md, children}) => {
+const Content = ({ md, children }) => {
   return (
     <Wrapper>
       {md && <ReactMarkdown source={md} />}
