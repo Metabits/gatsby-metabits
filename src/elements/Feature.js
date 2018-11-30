@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {graphql} from 'gatsby'
+import {graphql, withPrefix} from 'gatsby'
 
 import Link from './Link'
 import Icon from './Icon'
@@ -14,6 +14,7 @@ export const query = graphql`
       title
       subTitle
       icon
+      svgIcon
     }
   }
 `
@@ -51,12 +52,13 @@ const Image = styled.img`
   width: auto;
 `
 
-const Feature = ({ fields: {slug}, frontmatter: {title, subTitle, icon, image} }) => {
+const Feature = ({ fields: {slug}, frontmatter: {title, subTitle, icon, svgIcon} }) => {
+
   return (
     <BoxWrapper to={slug}>
       <IconWrapper>
-        {icon && <Icon icon={icon} />}
-        {image && <Image src={image} title={title} />}
+        {icon && <Icon icon={icon} alt='' />}
+        {svgIcon && <Image src={withPrefix(svgIcon)} alt={title} />}
       </IconWrapper>
       <Title>{title}</Title>
       <p>{subTitle}</p>

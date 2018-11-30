@@ -52,9 +52,12 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
   const { frontmatter } = node
     if (frontmatter) {
-      const { banner } = frontmatter
+      const { banner, image, svgIcon } = frontmatter
       if (banner && banner.image) {
         frontmatter.banner.image = path.join(__dirname, '/src/images/', banner.image)
+      }
+      if (image) {
+        frontmatter.image = path.join(__dirname, '/src/images/', image)
       }
     }
 

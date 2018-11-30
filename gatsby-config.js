@@ -1,10 +1,12 @@
 module.exports = {
   siteMetadata: {
     title: 'Gatsby Default Starter',
-    lang: 'no'
+    lang: 'no',
+    siteUrl: 'https://www.metabits.no'
   },
   plugins: [
     'gatsby-plugin-styled-components',
+    'gatsby-plugin-sitemap',
     'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-source-filesystem',
@@ -33,6 +35,13 @@ module.exports = {
         theme_color: '#663399',
         display: 'minimal-ui',
         icon: 'src/images/metabits-logo.png', // This path is relative to the root of the site.
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-google-tagmanager',
+      options: {
+        id: 'GTM-5MC8TVT',
+        includeInDevelopment: false
       },
     },
     {

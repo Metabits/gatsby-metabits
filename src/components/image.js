@@ -1,6 +1,14 @@
 import React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import Img from 'gatsby-image'
+import styled from 'styled-components'
+
+const StyledImg = styled(Img)`
+  ${props => (props.fullWidth ? 'width: 100%;height: auto;' : '')}
+  ${props =>
+    props.border ? `border: 1px solid ${props.theme.colors.border};` : ''}
+  ${props => (props.maxWidth ? `max-width: ${props.maxWidth}rem;` : '')}
+`
 
 /*
  * This component is built using `gatsby-image` to automatically serve optimized
@@ -60,7 +68,7 @@ const Image = ({src, render}) => (
       }
       if (node) {
         return (
-          <Img fluid={node.node.childImageSharp.fluid} />
+          <StyledImg fluid={node.node.childImageSharp.fluid} />
         )
       }
       return null
