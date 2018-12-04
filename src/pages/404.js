@@ -12,11 +12,11 @@ const StyledLink = styled(Link)`
 `
 
 const NotFoundPage = () => (
-  <LayoutContainer title='Side ikke funnet'>
-    <Title level='1'>Siden ble ikke funnet (404 feil)</Title>
-    <Element as='p' mb={1}>
+  <LayoutContainer title="Side ikke funnet">
+    <Title level="1">Siden ble ikke funnet (404 feil)</Title>
+    <Element as="p" mb={1}>
       Siden du forsøkte å nå ble ikke funnet.{' '}
-      <StyledLink to='/'>Gå tilbake til forsiden</StyledLink>
+      <StyledLink to="/">Gå tilbake til forsiden</StyledLink>
     </Element>
   </LayoutContainer>
 )

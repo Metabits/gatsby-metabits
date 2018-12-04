@@ -48,7 +48,9 @@ const LayoutContainer = ({ meta = {}, ...props }) => (
       <>
         <Helmet title={meta.title || data.site.siteMetadata.title}>
           <html lang={data.site.siteMetadata.lang} />
-          {meta.description && <meta name="description" content={meta.description} />}
+          {meta.description && (
+            <meta name="description" content={meta.description} />
+          )}
         </Helmet>
         <Location>
           {({ location }) => {

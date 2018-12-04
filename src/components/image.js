@@ -21,7 +21,7 @@ const StyledImg = styled(Img)`
  * - `StaticQuery`: https://gatsby.app/staticquery
  */
 
-const Image = ({src, render}) => (
+const Image = ({ src, render }) => (
   <StaticQuery
     query={graphql`
       query imageQuery {
@@ -60,16 +60,14 @@ const Image = ({src, render}) => (
       }
     `}
     render={data => {
-      const node = data.allFile.edges.find((fileNode) => {
+      const node = data.allFile.edges.find(fileNode => {
         return fileNode.node.absolutePath === src
       })
       if (render) {
         return render(node.node.childImageSharp.fluid)
       }
       if (node) {
-        return (
-          <StyledImg fluid={node.node.childImageSharp.fluid} />
-        )
+        return <StyledImg fluid={node.node.childImageSharp.fluid} />
       }
       return null
     }}

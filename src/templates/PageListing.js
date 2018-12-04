@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
 import LayoutContainer from '../containers/LayoutContainer'
 
-import {Col, Row} from 'react-styled-flexboxgrid'
+import { Col, Row } from 'react-styled-flexboxgrid'
 import Feature from '../elements/Feature'
 import PageTitle from '../elements/PageTitle'
 
@@ -12,7 +12,7 @@ const PageListing = ({ data }) => {
     markdownRemark: {
       frontmatter: { title, subTitle, meta },
     },
-    services
+    services,
   } = data
   return (
     <LayoutContainer meta={meta}>
@@ -36,7 +36,7 @@ const PageListing = ({ data }) => {
 
 PageListing.propTypes = {
   data: PropTypes.object.isRequired,
-  services: PropTypes.array
+  services: PropTypes.array,
 }
 
 export default PageListing

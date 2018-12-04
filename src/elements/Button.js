@@ -44,7 +44,6 @@ const BasicButton = styled(Element)`
   align-items: center;
   justify-content: center;
   border-radius: ${props => (props.rounded ? '50%' : '3px')};
-  outline: none;
   box-shadow: ${props => (props.shadow ? props.theme.shadow : 'none')};
   color: ${props => buttonColor(props)};
   background-color: ${props => buttonBackground(props)};

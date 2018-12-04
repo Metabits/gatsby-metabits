@@ -26,15 +26,23 @@ const CanvasInner = styled.div`
 `
 
 export default class OffCanvas extends Component {
+  constructor(props) {
+    super(props)
+    this.elRef = React.createRef()
+  }
   componentDidUpdate(prevProps) {
-    // if (process.browser && this.props.visible !== nextProps.visible) {
-    //   document.body.style.overflow = nextProps.visible ? 'hidden' : ''
-    // }
+    if (document && this.props.visible !== prevProps.visible) {
+      document.body.style.overflow = this.props.visible ? 'hidden' : ''
+      if (this.props.visible) {
+        const node = this.elRef.current
+        node.focus()
+      }
+    }
   }
   render() {
-    const { visible, children } = this.props
+    const { visible, children, ...rest } = this.props
     return (
-      <Canvas active={visible}>
+      <Canvas active={visible} {...rest} ref={this.elRef}>
         <CanvasInner>{children}</CanvasInner>
       </Canvas>
     )

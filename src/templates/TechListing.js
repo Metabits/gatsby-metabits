@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
 import LayoutContainer from '../containers/LayoutContainer'
 
-import {Col, Row} from 'react-styled-flexboxgrid'
+import { Col, Row } from 'react-styled-flexboxgrid'
 import Feature from '../elements/Feature'
 import PageTitle from '../elements/PageTitle'
 
@@ -12,7 +12,7 @@ const TechListing = ({ data }) => {
     markdownRemark: {
       frontmatter: { title, subTitle, meta },
     },
-    techs
+    techs,
   } = data
   return (
     <LayoutContainer meta={meta}>
@@ -35,7 +35,7 @@ const TechListing = ({ data }) => {
 }
 
 TechListing.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
 }
 
 export default TechListing

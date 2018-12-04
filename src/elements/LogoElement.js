@@ -17,7 +17,7 @@ const LogoWrapper = styled.i`
   }
 `
 
-const Logo = ({ ...props }) => {
+const Logo = ({ svgProps, ...props }) => {
   return (
     <Element {...props}>
       <LogoWrapper>
@@ -27,6 +27,7 @@ const Logo = ({ ...props }) => {
           clipRule="evenodd"
           strokeLinejoin="round"
           strokeMiterlimit="1.414"
+          {...svgProps}
         >
           <g fillRule="nonzero">
             <path

@@ -6,6 +6,7 @@ import breakpoint from 'styled-components-breakpoint'
 
 import Icon from '../elements/Icon'
 import Logo from '../elements/LogoElement'
+import Title from '../elements/Title'
 import OffCanvas from '../elements/OffCanvas'
 import Button, { RoundedButton } from '../elements/Button'
 import Wrapper from '../elements/Wrapper'
@@ -35,6 +36,10 @@ class Layout extends Component {
         primary
         onClick={this.toggleMenu}
         active={menuVisible}
+        role="button"
+        aria-label="Vis meny"
+        aria-expanded={menuVisible ? 'true' : 'false'}
+        type="button"
       >
         <Icon icon={icon} />
       </RoundedButton>
@@ -57,13 +62,13 @@ class Layout extends Component {
       <ThemeProvider theme={theme}>
         <Main>
           {this.renderHeader()}
+          {this.renderOverlay()}
           <Content>{this.renderContent()}</Content>
           <Footer>
             <Wrapper>
               <p>Metabits as © {new Date().getFullYear()}</p>
             </Wrapper>
           </Footer>
-          {this.renderOverlay()}
           <GlobalStyle />
         </Main>
       </ThemeProvider>
@@ -78,9 +83,9 @@ class Layout extends Component {
       <Header>
         <Wrapper>
           <HeaderWrapper>
-            <Link to="/">
+            <Link to="/" aria-label="Tilbake til forsiden">
               <LogoWrapper href="/">
-                <Logo title="Metabits" />
+                <Logo svgProps={{ alt: 'Metabits logo' }} />
               </LogoWrapper>
             </Link>
             <NavWrapper>
@@ -112,14 +117,20 @@ class Layout extends Component {
   renderOverlay() {
     const { menuVisible } = this.state
     const { navigation } = this.props
+    const extra = !menuVisible ? { 'aria-hidden': 'true' } : {}
     return (
-      <OffCanvas visible={menuVisible}>
+      <OffCanvas
+        visible={menuVisible}
+        {...extra}
+        role="dialog"
+        aria-label="Navigasjonsmeny"
+      >
         <Header>
           <Wrapper>
             <HeaderWrapper>
-              <Link to={'/'}>
-                <LogoWrapper isHidden>
-                  <Logo alt="Metabits" />
+              <Link to={'/'} aria-hidden="true" tabIndex="-1">
+                <LogoWrapper isHidden aria-hidden="true">
+                  <Logo svgProps={{ alt: 'Metabits logo' }} />
                 </LogoWrapper>
               </Link>
               <NavWrapper>{this.toggleBtn('close')}</NavWrapper>
@@ -161,7 +172,7 @@ const theme = {
     primaryActive: '#0095DA',
     secondary: '#FF931E',
     secondaryActive: '#D47A19',
-    textMuted: '#999',
+    textMuted: '#555',
     white: '#fff',
     lightGray: '#f2f2f2',
   },

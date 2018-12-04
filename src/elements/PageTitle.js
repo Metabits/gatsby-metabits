@@ -4,7 +4,7 @@ import Title from './Title'
 import Element from './Element'
 
 const PageTitle = ({ title, subTitle, inset = true, ...props }) => {
-  const extra = inset ? {mdOffset: 2, md: 8} : {}
+  const extra = inset ? { mdOffset: 2, md: 8 } : {}
   return (
     <Element {...props}>
       <Row>

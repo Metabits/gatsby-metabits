@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {graphql} from 'gatsby'
+import { graphql } from 'gatsby'
 import breakpoint from 'styled-components-breakpoint'
 import Img from '../components/Image'
 
@@ -42,7 +42,7 @@ const Title = styled.h1`
   line-height: 1.2;
 `
 const Subtitle = styled(Title)`
-  font-size: 2.0rem;
+  font-size: 2rem;
   font-weight: normal;
   margin-bottom: 2rem;
 `
@@ -51,7 +51,7 @@ const PageBanner = ({ title, lead, image, linkText, uri }) => {
   return (
     <Img
       src={image}
-      render={({src}) => {
+      render={({ src }) => {
         return (
           <Banner style={{ backgroundImage: `url( ${src} )` }}>
             <Wrapper>
