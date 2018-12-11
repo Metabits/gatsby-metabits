@@ -30,6 +30,11 @@ export default class OffCanvas extends Component {
     super(props)
     this.elRef = React.createRef()
   }
+  componentDidMount() {
+    if (document && !this.props.visible) {
+      document.body.style.overflow = ''
+    }
+  }
   componentDidUpdate(prevProps) {
     if (document && this.props.visible !== prevProps.visible) {
       document.body.style.overflow = this.props.visible ? 'hidden' : ''

@@ -116,7 +116,7 @@ class Layout extends Component {
   }
   renderOverlay() {
     const { menuVisible } = this.state
-    const { navigation } = this.props
+    const { navigation, location: { pathname } } = this.props
     const extra = !menuVisible ? { 'aria-hidden': 'true' } : {}
     return (
       <OffCanvas
@@ -140,7 +140,7 @@ class Layout extends Component {
         <NavMobile>
           <NavMobileInner>
             {navigation.map((item, i) => {
-              return <Button block mb={1} size="xl" link key={i} {...item} />
+              return <Button block mb={1} size="xl" link key={i} {...item} active={item.to === pathname} />
             })}
           </NavMobileInner>
         </NavMobile>
