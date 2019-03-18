@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "alias": ["metabits.no"],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "status": 301,
+      "headers": { "Location": "https://www.metabits.no/$1" }
+    }
+  ]
+}
